@@ -1,0 +1,17 @@
+{
+  "at": "2026-10-05T15:35:37.216Z",
+  "url": "https://chunhua1972.github.io/four-color-game/",
+  "checks": [
+    "pages-http",
+    "subpath-manifest",
+    "hash-router-reload",
+    "mobile-local-game",
+    "two-independent-browser-guests",
+    "create-invite-join-ready-start",
+    "same-cloud-game",
+    "own-seat-hand-count",
+    "cloud-reload",
+    "cross-browser-discard",
+    "offline-reconnect"
+  ]
+}

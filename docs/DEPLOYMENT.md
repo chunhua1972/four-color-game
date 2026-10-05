@@ -50,4 +50,6 @@ npx supabase@2.119.0 db query --linked "select public.server_health();"
 
 ## 尚需實機與規模驗收
 
+本次驗證證據：`cloud-verification.json` 記錄獨立訪客、RLS／RPC／Realtime 隔離、每種席數的操作競態与五種席數的真實終局／零和分數；`pages-verification.json` 記錄已發布網站在手機與桌面兩個獨立瀏覽器的建房／加入／準備／開局／同步／刷新／重連。159 項自動測試包含首次匿名登入競態的回歸測試，另有 13 項瀏覽器 E2E。
+
 已驗證瀏覽器尺寸不等於 iPhone／iPad／Android 實機驗收。熟手房規確認、50 房／300 席壓測、帳號綁定、跨裝置同一身分、雲端歷史介面與外部告警仍屬後續工程；不要將目前發佈解讀為 DEVplan 所有 M7 條件已完成。

@@ -76,7 +76,9 @@ try {
   await mobile.setOffline(true);
   await a.getByText('正在恢復連線，暫停送出動作…').waitFor();
   await mobile.setOffline(false);
+  await a.getByText('正在恢復連線，暫停送出動作…').waitFor({ state: 'hidden' });
   await a.locator('.game-page').waitFor();
+  assert.equal(await a.locator('.game-page').getAttribute('data-game-id'), gameId);
   report.checks.push(
     'two-independent-browser-guests',
     'create-invite-join-ready-start',
