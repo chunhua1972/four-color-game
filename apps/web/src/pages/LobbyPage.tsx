@@ -29,7 +29,9 @@ export function LobbyPage() {
         if (roomId) {
           const next = await roomCall<CloudRoom>('get', { roomId });
           if (!alive) return;
-          setRoom(next);
+          setRoom((current) =>
+            current?.id === next.id && current.revision > next.revision ? current : next,
+          );
           setInvite(localStorage.getItem(`four-colors-invite-${roomId}`) ?? '');
           if (next.status === 'playing' && next.gameId)
             navigate(`/game/${next.gameId}`, { state: { roomId } });
@@ -63,6 +65,7 @@ export function LobbyPage() {
     setNotice('');
     localStorage.setItem('four-colors-name', name.trim());
     try {
+      setUserId(await ensureGuest());
       if (operation === 'create' || operation === 'invite') {
         const result = await roomCall<{ room: CloudRoom; code: string }>(operation, data);
         localStorage.setItem(`four-colors-invite-${result.room.id}`, result.code);

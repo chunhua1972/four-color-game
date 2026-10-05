@@ -1,0 +1,27 @@
+{
+  "at": "2026-10-05T15:19:42.444Z",
+  "checks": [
+    "anonymous-auth",
+    "private-realtime-membership",
+    "rest-rls",
+    "backend-rpc-denied",
+    "client-writes-denied",
+    "race-idempotency-2",
+    "race-idempotency-3",
+    "race-idempotency-4",
+    "race-idempotency-5",
+    "race-idempotency-6",
+    "server-job-resolution",
+    "zero-sum-settlement",
+    "next-round-room-reset"
+  ],
+  "seatCounts": [
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "completedRound": true,
+  "resultReason": "win"
+}

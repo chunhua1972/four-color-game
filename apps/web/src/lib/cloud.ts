@@ -29,7 +29,15 @@ const messages: Record<string, string> = {
   CONCURRENT_RETRY: '目前操作較多，請依最新局面再試。',
   REQUEST_FAILED: '操作未完成，請確認設定與連線後再試。',
 };
-export async function ensureGuest() {
+let guestPromise: Promise<string> | null = null;
+export function ensureGuest(): Promise<string> {
+  if (guestPromise) return guestPromise;
+  guestPromise = createGuest().finally(() => {
+    guestPromise = null;
+  });
+  return guestPromise;
+}
+async function createGuest() {
   if (!supabase) throw new Error('尚未設定雲端連線');
   const {
     data: { session },
