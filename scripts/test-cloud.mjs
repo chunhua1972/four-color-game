@@ -45,7 +45,7 @@ async function call(client, operation, body = {}) {
     let code = 'NETWORK_OR_FUNCTION_ERROR';
     try {
       code = (await error.context.json()).error;
-    } catch {}
+    } catch { /* Network errors do not have a JSON response. */ }
     throw new Error(code);
   }
   return data.data;
