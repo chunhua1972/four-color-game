@@ -1,0 +1,62 @@
+{
+  "engine": "0.1.0",
+  "policy": "normal-heuristic-v1",
+  "seedRange": "N*100000+[0,rounds)",
+  "results": [
+    {
+      "seats": 2,
+      "rounds": 1000,
+      "wins": 997,
+      "draws": 0,
+      "penalties": 3,
+      "maxActions": 148,
+      "totalActions": 51692,
+      "illegal": 0,
+      "elapsedMs": 12306
+    },
+    {
+      "seats": 3,
+      "rounds": 1000,
+      "wins": 995,
+      "draws": 2,
+      "penalties": 3,
+      "maxActions": 144,
+      "totalActions": 56932,
+      "illegal": 0,
+      "elapsedMs": 15602
+    },
+    {
+      "seats": 4,
+      "rounds": 1000,
+      "wins": 958,
+      "draws": 41,
+      "penalties": 1,
+      "maxActions": 116,
+      "totalActions": 61418,
+      "illegal": 0,
+      "elapsedMs": 19574
+    },
+    {
+      "seats": 5,
+      "rounds": 1000,
+      "wins": 774,
+      "draws": 198,
+      "penalties": 28,
+      "maxActions": 124,
+      "totalActions": 77864,
+      "illegal": 0,
+      "elapsedMs": 28748
+    },
+    {
+      "seats": 6,
+      "rounds": 1000,
+      "wins": 468,
+      "draws": 487,
+      "penalties": 45,
+      "maxActions": 120,
+      "totalActions": 86054,
+      "illegal": 0,
+      "elapsedMs": 29887
+    }
+  ]
+}

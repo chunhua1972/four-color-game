@@ -1,0 +1,8 @@
+node_modules
+dist
+pnpm-lock.yaml
+supabase/.temp
+test-results
+playwright-report
+DEVplan.md
+docs/screenshots

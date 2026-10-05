@@ -1,0 +1,2 @@
+-- Intentionally empty: never seed public demo users or shared concealed hands.
+-- Test data is created in isolated test databases by scripts/test-db.mjs.

@@ -1,0 +1,62 @@
+{
+  "engine": "0.1.0",
+  "policy": "easy-v1",
+  "seedRange": "N*100000+[0,rounds)",
+  "results": [
+    {
+      "seats": 2,
+      "rounds": 1000,
+      "wins": 861,
+      "draws": 20,
+      "penalties": 119,
+      "maxActions": 190,
+      "totalActions": 112414,
+      "illegal": 0,
+      "elapsedMs": 22975
+    },
+    {
+      "seats": 3,
+      "rounds": 1000,
+      "wins": 579,
+      "draws": 358,
+      "penalties": 63,
+      "maxActions": 162,
+      "totalActions": 128282,
+      "illegal": 0,
+      "elapsedMs": 32935
+    },
+    {
+      "seats": 4,
+      "rounds": 1000,
+      "wins": 127,
+      "draws": 870,
+      "penalties": 3,
+      "maxActions": 124,
+      "totalActions": 104010,
+      "illegal": 0,
+      "elapsedMs": 29119
+    },
+    {
+      "seats": 5,
+      "rounds": 1000,
+      "wins": 50,
+      "draws": 946,
+      "penalties": 4,
+      "maxActions": 122,
+      "totalActions": 101070,
+      "illegal": 0,
+      "elapsedMs": 27309
+    },
+    {
+      "seats": 6,
+      "rounds": 1000,
+      "wins": 19,
+      "draws": 976,
+      "penalties": 5,
+      "maxActions": 112,
+      "totalActions": 89256,
+      "illegal": 0,
+      "elapsedMs": 22979
+    }
+  ]
+}

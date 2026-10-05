@@ -1,0 +1,9 @@
+{
+  "cases": 2000,
+  "handSize": 21,
+  "p95Ms": 0.019599999999996953,
+  "maxMs": 0.3383000000000038,
+  "maxNodes": 34,
+  "deferred": 0,
+  "limitation": "Desktop random-hand baseline; not a worst-case or mobile guarantee."
+}
