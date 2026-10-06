@@ -39,7 +39,7 @@ npx supabase@2.119.0 functions deploy fourcolor_game_api fourcolor_job_dispatch 
 
 Games 的 migration history 包含 Tetris。此專案使用 `4color-deploy-migrations.mjs` 只套用尚未執行的 `*_4color_*.sql`，並在同一交易記錄版本；避免單一遊戲的 `db push` 因其他遊戲的歷史檔案不在本機而失敗。
 
-完整搬移備份位於已忽略的 `.deploy/4color-migration`，含原始應用資料、Auth 記錄、資料庫函式與連線設定。原 Fourcolor 的寫入與 Cron 已停用；永久刪除舊後端另需使用者明確授權。
+完整搬移備份位於已忽略的 `.deploy/4color-migration`，含原始應用資料、Auth 記錄、資料庫函式、Vault 排程設定與連線設定。2026-10-06 已依使用者明確授權，永久清除 Fourcolor 舊資料表、資料庫函式、使用者、Cron、Edge Functions 與原遊戲的服務密鑰，並關閉舊專案匿名註冊；保留 Supabase 專案本身與本機備份。清除及 Games／Tetris 後續驗證見 `4color-source-retirement.json`。
 
 初次部署／輪替排程憑證時執行 `node scripts/prepare-deployment.mjs`，把忽略目錄內的 `job.env` 送到 Games 的 Supabase secrets，再執行 `cron.sql` 將同一憑證放入 Vault。使用獨立的 `FOURCOLOR_JOB_DISPATCH_SECRET`／`FOURCOLOR_PUBLIC_ORIGINS`，避免覆蓋 Tetris 設定。**不要將這些檔案提交或貼入公開 issue。** `set-github-public-config.mjs` 只傳送公開 frontend variables。
 

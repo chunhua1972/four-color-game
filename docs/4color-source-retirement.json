@@ -1,0 +1,56 @@
+{
+  "source": "pojhgousjmrlussvslwu",
+  "target": "aabjctsxjwsismfrwpja",
+  "retiredAt": "2026-10-06T13:46:33.082Z",
+  "remaining": {
+    "applicationFunctions": 0,
+    "applicationTables": 0,
+    "authUsers": 0,
+    "gameCron": 0
+  },
+  "edgeFunctions": 0,
+  "sourceAnonymousSignInsDisabled": true,
+  "backupDirectory": ".deploy/4color-migration",
+  "verifiedAt": "2026-10-06T13:48:38.881Z",
+  "sourceVerified": {
+    "applicationFunctions": 0,
+    "applicationTables": 0,
+    "authSessions": 0,
+    "authUsers": 0,
+    "gameCron": 0,
+    "oldVaultSecrets": 0,
+    "refreshTokens": 0
+  },
+  "sourceCustomSecretsRemoved": true,
+  "gamesVerified": {
+    "applicationFunctions": 18,
+    "applicationTables": 16,
+    "cron": [
+      {
+        "active": true,
+        "name": "tetris-timeout-sweeper"
+      },
+      {
+        "active": true,
+        "name": "tetris-cron-log-cleanup"
+      },
+      {
+        "active": true,
+        "name": "4color_jobs"
+      },
+      {
+        "active": true,
+        "name": "4color_outbox"
+      }
+    ],
+    "health": {
+      "outboxPending": 0,
+      "overdueJobs": 0,
+      "pendingJobs": 0
+    },
+    "originalGuestsPreserved": 15,
+    "recentGameCronFailures": 0,
+    "anonymousSignInsEnabled": true
+  },
+  "authSettingsVerified": true
+}
