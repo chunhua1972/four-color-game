@@ -78,7 +78,10 @@ const tetrisFingerprint = () =>
       )
       .join(' union all '),
   );
-const mode = process.argv[2];
+const mode =
+  process.argv[1] && resolve(process.argv[1]) === resolve('scripts/4color-migrate.mjs')
+    ? process.argv[2]
+    : undefined;
 if (mode === 'inspect') {
   for (const [label, ref] of [
     ['source', source],
