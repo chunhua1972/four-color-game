@@ -18,7 +18,7 @@ const env = Object.fromEntries(
     }),
 );
 const url = new URL(env.VITE_SUPABASE_URL);
-if (url.hostname !== 'pojhgousjmrlussvslwu.supabase.co')
+if (url.hostname !== 'aabjctsxjwsismfrwpja.supabase.co')
   throw new Error('Unexpected deployment target');
 if (!env.VITE_SUPABASE_PUBLISHABLE_KEY?.startsWith('sb_publishable_')) {
   const claims = JSON.parse(
@@ -40,16 +40,16 @@ additional_redirect_urls = ["https://chunhua1972.github.io/four-color-game/", "h
 const secret = randomBytes(32).toString('hex');
 writeFileSync(
   '.deploy/job.env',
-  `JOB_DISPATCH_SECRET=${secret}\nPUBLIC_ORIGINS=https://chunhua1972.github.io,http://localhost:5173,http://localhost:4173\n`,
+  `FOURCOLOR_JOB_DISPATCH_SECRET=${secret}\nFOURCOLOR_PUBLIC_ORIGINS=https://chunhua1972.github.io,http://localhost:5173,http://localhost:4173\n`,
 );
-const endpoint = `${url.origin}/functions/v1/job-dispatch`;
+const endpoint = `${url.origin}/functions/v1/fourcolor_job_dispatch`;
 writeFileSync(
   '.deploy/cron.sql',
   `do $$ declare sid uuid; begin
-select id into sid from vault.secrets where name='four_colors_job_secret';
-if sid is null then perform vault.create_secret('${secret}','four_colors_job_secret'); else perform vault.update_secret(sid,'${secret}'); end if;
-select id into sid from vault.secrets where name='four_colors_job_url';
-if sid is null then perform vault.create_secret('${endpoint}','four_colors_job_url'); else perform vault.update_secret(sid,'${endpoint}'); end if;
+select id into sid from vault.secrets where name='4color_job_secret';
+if sid is null then perform vault.create_secret('${secret}','4color_job_secret'); else perform vault.update_secret(sid,'${secret}'); end if;
+select id into sid from vault.secrets where name='4color_job_url';
+if sid is null then perform vault.create_secret('${endpoint}','4color_job_url'); else perform vault.update_secret(sid,'${endpoint}'); end if;
 end $$; select 'Scheduler configured without exposing credentials' as status;`,
 );
 console.log('Deployment files prepared in ignored .deploy/; scheduler credential remains private.');

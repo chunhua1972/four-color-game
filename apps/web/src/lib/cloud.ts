@@ -44,7 +44,24 @@ async function createGuest() {
     error,
   } = await supabase.auth.getSession();
   if (error) throw error;
-  if (session) return session.user.id;
+  if (session) {
+    const token = session.access_token;
+    if (token) {
+      const claims = JSON.parse(
+        atob(token.split('.')[1].replaceAll('-', '+').replaceAll('_', '/')),
+      );
+      if (
+        claims.ref === 'pojhgousjmrlussvslwu' ||
+        claims.iss === 'https://pojhgousjmrlussvslwu.supabase.co/auth/v1'
+      ) {
+        const refreshed = await supabase.auth.refreshSession();
+        if (refreshed.error) throw refreshed.error;
+        if (!refreshed.data.session) throw new Error('登入已過期，請重新連線。');
+        return refreshed.data.session.user.id;
+      }
+    }
+    return session.user.id;
+  }
   const result = await supabase.auth.signInAnonymously();
   if (result.error) throw result.error;
   return result.data.user!.id;
@@ -55,7 +72,7 @@ export async function cloudCall<T>(
 ): Promise<T> {
   if (!supabase) throw new Error('尚未設定雲端連線');
   await ensureGuest();
-  const { data, error } = await supabase.functions.invoke('game-api', {
+  const { data, error } = await supabase.functions.invoke('fourcolor_game_api', {
     body: { operation, ...payload },
   });
   if (error) {

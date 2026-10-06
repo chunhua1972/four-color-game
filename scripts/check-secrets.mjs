@@ -1,8 +1,12 @@
 import { execFileSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
-const files = execFileSync('git', ['ls-files', '-z'], { encoding: 'utf8' })
+import { existsSync, readFileSync } from 'node:fs';
+const files = execFileSync(
+  'git',
+  ['ls-files', '-z', '--cached', '--others', '--exclude-standard'],
+  { encoding: 'utf8' },
+)
   .split('\0')
-  .filter(Boolean);
+  .filter((file) => file && existsSync(file));
 let failed = false;
 for (const file of files) {
   if (

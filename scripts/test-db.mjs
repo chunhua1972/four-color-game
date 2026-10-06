@@ -7,7 +7,7 @@ await db.exec(
 );
 await db.exec(
   readFileSync(
-    new URL('../supabase/migrations/20261005000100_foundation.sql', import.meta.url),
+    new URL('../supabase/migrations/20261006000100_4color_foundation.sql', import.meta.url),
     'utf8',
   ),
 );
@@ -17,7 +17,7 @@ const A = '00000000-0000-4000-8000-000000000001',
   room = '00000000-0000-4000-8000-000000000004',
   game = '00000000-0000-4000-8000-000000000005';
 await db.exec(
-  `insert into auth.users values('${A}'),('${B}'),('${C}'); insert into public.rooms(id,host_user_id,seat_count,rules) values('${room}','${A}',2,'{}'); insert into public.room_members(room_id,user_id,seat) values('${room}','${A}',0),('${room}','${B}',1); insert into public.games(id,room_id,round_no,phase,public_snapshot,rules_hash,engine_version) values('${game}','${room}',1,'dealer_opening','{"boardVersion":0,"wallCount":71}','test','0.1.0'); insert into public.game_members(game_id,user_id,seat) values('${game}','${A}',0),('${game}','${B}',1); insert into private.game_authority(game_id,board_version,state_json,state_hash) values('${game}',0,'{"hands":[[12,13],[40,41]],"wall":[0,1],"window":null}','test');`,
+  `insert into auth.users values('${A}'),('${B}'),('${C}'); insert into public."4color_rooms"(id,host_user_id,seat_count,rules) values('${room}','${A}',2,'{}'); insert into public."4color_room_members"(room_id,user_id,seat) values('${room}','${A}',0),('${room}','${B}',1); insert into public."4color_games"(id,room_id,round_no,phase,public_snapshot,rules_hash,engine_version) values('${game}','${room}',1,'dealer_opening','{"boardVersion":0,"wallCount":71}','test','0.1.0'); insert into public."4color_game_members"(game_id,user_id,seat) values('${game}','${A}',0),('${game}','${B}',1); insert into "4color_private"."4color_game_authority"(game_id,board_version,state_json,state_hash) values('${game}',0,'{"hands":[[12,13],[40,41]],"wall":[0,1],"window":null}','test');`,
 );
 async function actor(uid, role = 'authenticated') {
   await db.exec(
@@ -25,36 +25,36 @@ async function actor(uid, role = 'authenticated') {
   );
 }
 await actor(A);
-let result = await db.query(`select public.get_my_game_bundle('${game}') as bundle`);
+let result = await db.query(`select public."4color_get_my_game_bundle"('${game}') as bundle`);
 assert.deepEqual(result.rows[0].bundle.hand, [12, 13]);
 assert.equal(result.rows[0].bundle.wall, undefined);
 assert.equal(result.rows[0].bundle.hands, undefined);
-await assert.rejects(() => db.query('select * from private.game_authority'), /permission denied/);
+await assert.rejects(() => db.query('select * from "4color_private"."4color_game_authority"'), /permission denied/);
 await assert.rejects(
-  () => db.query(`update public.games set board_version=99 where id='${game}'`),
+  () => db.query(`update public."4color_games" set board_version=99 where id='${game}'`),
   /permission denied/,
 );
 await actor(B);
-result = await db.query(`select public.get_my_game_bundle('${game}') as bundle`);
+result = await db.query(`select public."4color_get_my_game_bundle"('${game}') as bundle`);
 assert.deepEqual(result.rows[0].bundle.hand, [40, 41]);
 await actor(C);
-result = await db.query(`select public.get_my_game_bundle('${game}') as bundle`);
+result = await db.query(`select public."4color_get_my_game_bundle"('${game}') as bundle`);
 assert.equal(result.rows[0].bundle, null);
-assert.equal((await db.query('select * from public.games')).rows.length, 0);
-assert.equal((await db.query('select * from public.rooms')).rows.length, 0);
+assert.equal((await db.query('select * from public."4color_games"')).rows.length, 0);
+assert.equal((await db.query('select * from public."4color_rooms"')).rows.length, 0);
 await actor('', 'anon');
 await assert.rejects(
-  () => db.query(`select public.get_my_game_bundle('${game}')`),
+  () => db.query(`select public."4color_get_my_game_bundle"('${game}')`),
   /permission denied/,
 );
-await assert.rejects(() => db.query('select * from public.games'), /permission denied/);
+await assert.rejects(() => db.query('select * from public."4color_games"'), /permission denied/);
 await db.exec('reset role');
 await assert.rejects(
-  () => db.query(`insert into public.room_ai_seats values('${room}',0,'normal')`),
+  () => db.query(`insert into public."4color_room_ai_seats" values('${room}',0,'normal')`),
   /SEAT_OCCUPIED/,
 );
 await assert.rejects(
-  () => db.query(`insert into public.room_ai_seats values('${room}',2,'normal')`),
+  () => db.query(`insert into public."4color_room_ai_seats" values('${room}',2,'normal')`),
   /INVALID_ROOM_SEAT/,
 );
 await db.close();

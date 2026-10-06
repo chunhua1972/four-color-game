@@ -49,7 +49,7 @@ export function LobbyPage() {
     }, 5000);
     const channel = roomId
       ? supabase
-          .channel(`room:${roomId}`, { config: { private: true } })
+          .channel(`4color_room:${roomId}`, { config: { private: true } })
           .on('broadcast', { event: 'changed' }, () => void refresh())
           .subscribe()
       : null;

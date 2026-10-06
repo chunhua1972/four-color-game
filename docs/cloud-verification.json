@@ -1,5 +1,5 @@
 {
-  "at": "2026-10-05T15:19:42.444Z",
+  "at": "2026-10-06T13:16:10.599Z",
   "checks": [
     "anonymous-auth",
     "private-realtime-membership",
@@ -15,44 +15,13 @@
     "zero-sum-settlement",
     "next-round-room-reset"
   ],
-  "seatCounts": [2, 3, 4, 5, 6],
+  "seatCounts": [
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
   "completedRound": true,
-  "resultReason": "win",
-  "completedRounds": [
-    {
-      "phase": "finished",
-      "reason": "win",
-      "scoreSum": 0,
-      "seats": 2,
-      "version": 98
-    },
-    {
-      "phase": "finished",
-      "reason": "win",
-      "scoreSum": 0,
-      "seats": 3,
-      "version": 50
-    },
-    {
-      "phase": "finished",
-      "reason": "win",
-      "scoreSum": 0,
-      "seats": 4,
-      "version": 82
-    },
-    {
-      "phase": "finished",
-      "reason": "win",
-      "scoreSum": 0,
-      "seats": 5,
-      "version": 24
-    },
-    {
-      "phase": "drawn_game",
-      "reason": "draw",
-      "scoreSum": 0,
-      "seats": 6,
-      "version": 92
-    }
-  ]
+  "resultReason": "win"
 }

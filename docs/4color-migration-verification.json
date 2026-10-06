@@ -1,0 +1,107 @@
+{
+  "source": "pojhgousjmrlussvslwu",
+  "target": "aabjctsxjwsismfrwpja",
+  "verifiedAt": "2026-10-06T13:15:11.354Z",
+  "checks": [
+    {
+      "table": "public.4color_profiles",
+      "rows": 3,
+      "exactMatch": true
+    },
+    {
+      "table": "public.4color_rooms",
+      "rows": 3,
+      "exactMatch": true
+    },
+    {
+      "table": "public.4color_room_members",
+      "rows": 2,
+      "exactMatch": true
+    },
+    {
+      "table": "public.4color_room_ai_seats",
+      "rows": 0,
+      "exactMatch": true
+    },
+    {
+      "table": "public.4color_games",
+      "rows": 9,
+      "exactMatch": true
+    },
+    {
+      "table": "public.4color_game_members",
+      "rows": 18,
+      "exactMatch": true
+    },
+    {
+      "table": "public.4color_game_events",
+      "rows": 621,
+      "exactMatch": true
+    },
+    {
+      "table": "public.4color_game_results",
+      "rows": 18,
+      "exactMatch": true
+    },
+    {
+      "table": "4color_private.4color_game_authority",
+      "rows": 9,
+      "exactMatch": true
+    },
+    {
+      "table": "4color_private.4color_tile_locations",
+      "rows": 1008,
+      "exactMatch": true
+    },
+    {
+      "table": "4color_private.4color_game_responses",
+      "rows": 366,
+      "exactMatch": true
+    },
+    {
+      "table": "4color_private.4color_command_receipts",
+      "rows": 371,
+      "exactMatch": true
+    },
+    {
+      "table": "4color_private.4color_room_invites",
+      "rows": 3,
+      "exactMatch": true
+    },
+    {
+      "table": "4color_private.4color_internal_events",
+      "rows": 621,
+      "exactMatch": true
+    },
+    {
+      "table": "4color_private.4color_jobs",
+      "rows": 709,
+      "exactMatch": true
+    },
+    {
+      "table": "4color_private.4color_outbox",
+      "rows": 621,
+      "exactMatch": true
+    },
+    {
+      "table": "auth.users",
+      "imported": 15
+    },
+    {
+      "table": "auth.sessions",
+      "imported": 15
+    },
+    {
+      "table": "auth.refresh_tokens",
+      "imported": 19
+    },
+    {
+      "table": "auth.mfa_amr_claims",
+      "imported": 15
+    },
+    {
+      "existingTetrisTables": 7,
+      "unchanged": true
+    }
+  ]
+}

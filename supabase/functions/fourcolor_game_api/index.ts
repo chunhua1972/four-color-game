@@ -1,6 +1,6 @@
-import { admin, command, roomAction, snapshot } from '../_shared/service.ts';
+import { admin, command, roomAction, snapshot } from '../_4color_shared/service.ts';
 const allowed = new Set(
-  (Deno.env.get('PUBLIC_ORIGINS') ?? 'http://localhost:5173,http://localhost:4173').split(','),
+  (Deno.env.get('FOURCOLOR_PUBLIC_ORIGINS') ?? 'http://localhost:5173,http://localhost:4173').split(','),
 );
 Deno.serve(async (request: Request) => {
   const origin = request.headers.get('origin');

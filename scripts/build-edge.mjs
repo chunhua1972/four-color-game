@@ -1,9 +1,9 @@
 import { build } from 'esbuild';
 await build({
   entryPoints: [
-    'supabase/functions/core-proof/index.ts',
-    'supabase/functions/game-api/index.ts',
-    'supabase/functions/job-dispatch/index.ts',
+    'supabase/functions/fourcolor_core_proof/index.ts',
+    'supabase/functions/fourcolor_game_api/index.ts',
+    'supabase/functions/fourcolor_job_dispatch/index.ts',
   ],
   outdir: 'supabase/functions/dist',
   bundle: true,

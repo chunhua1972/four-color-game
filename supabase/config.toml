@@ -4,10 +4,10 @@
 # working directory name when running `supabase init`.
 project_id = "007"
 
-[functions.game-api]
+[functions.fourcolor_game_api]
 verify_jwt = false
 
-[functions.job-dispatch]
+[functions.fourcolor_job_dispatch]
 verify_jwt = false
 
 [api]

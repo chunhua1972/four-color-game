@@ -1,6 +1,6 @@
-import { dispatchJobs } from '../_shared/service.ts';
+import { dispatchJobs } from '../_4color_shared/service.ts';
 Deno.serve(async (request: Request) => {
-  const expected = Deno.env.get('JOB_DISPATCH_SECRET');
+  const expected = Deno.env.get('FOURCOLOR_JOB_DISPATCH_SECRET');
   const supplied = request.headers.get('x-job-secret');
   if (!expected || !supplied || expected.length !== supplied.length)
     return new Response('Unauthorized', { status: 401 });

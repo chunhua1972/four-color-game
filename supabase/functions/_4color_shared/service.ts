@@ -30,7 +30,7 @@ export const admin = createClient(
   },
 );
 export async function rpc<T>(name: string, args: Record<string, unknown> = {}): Promise<T> {
-  const { data, error } = await admin.rpc(name, args);
+  const { data, error } = await admin.rpc(`4color_${name}`, args);
   if (error) throw new Error(error.message);
   return data as T;
 }

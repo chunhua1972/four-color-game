@@ -40,9 +40,9 @@ npx pnpm --filter @four-colors/web preview --port 4173
 
 將根目錄 `.env.example` 複製為 `.env.local`，填入 `VITE_SUPABASE_URL` 與 `VITE_SUPABASE_PUBLISHABLE_KEY`。Vite 從工作區根目錄讀取環境變數；設定後重啟開發伺服器。前端只能放 publishable／anon 公開金鑰。
 
-`/lobby` 建立訪客身分後可建房、邀請朋友、設定 AI 與準備開局。Supabase Fourcolor 已啟用 Anonymous Sign-ins。不要清除網站資料，否則訪客身分會遺失。
+`/lobby` 建立訪客身分後可建房、邀請朋友、設定 AI 與準備開局。Supabase Games 已啟用 Anonymous Sign-ins；原 Fourcolor 訪客可自動恢復身分。不要清除網站資料，否則訪客身分會遺失。
 
-`supabase/migrations` 提供公開／私密分層、RLS、本人快照、房間鎖、service-only CAS、冪等收據、凍窗、持久 jobs、outbox 與 private Realtime。`game-api` 是權威 API；`job-dispatch` 由持久 Cron 呼叫。`core-proof` 僅為核心 bundle 證明。
+`supabase/migrations` 提供公開／私密分層、RLS、本人快照、房間鎖、service-only CAS、冪等收據、凍窗、持久 jobs、outbox 與 private Realtime。資料庫物件統一使用 `4color_` 前綴，私密表位於 `4color_private`。`fourcolor_game_api` 是權威 API；`fourcolor_job_dispatch` 由持久 Cron 呼叫。Edge Function 名稱必須以字母開頭，因此使用 `fourcolor_`。`fourcolor_core_proof` 僅為核心 bundle 證明。
 
 本人 JWT 決定座位；所有暗手與牌庫只存在後端，通知只帶公開識別碼。斷線 90 秒由 AI 代打本局。實機、規模壓測與帳號綁定等剩餘驗收見進度文件。
 

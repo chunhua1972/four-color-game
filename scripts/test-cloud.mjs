@@ -38,7 +38,7 @@ function saveCleanup() {
   );
 }
 async function call(client, operation, body = {}) {
-  const { data, error } = await client.functions.invoke('game-api', {
+  const { data, error } = await client.functions.invoke('fourcolor_game_api', {
     body: { operation, ...body },
   });
   if (error) {
@@ -108,16 +108,16 @@ try {
     assert.equal(sa.public.responses, undefined);
     assert.ok(sa.hand.every((tile) => !sb.hand.includes(tile)));
     await assert.rejects(() => call(c, 'snapshot', { gameId }), /NOT_GAME_MEMBER/);
-    const privateRead = await c.from('games').select('*').eq('id', gameId);
+    const privateRead = await c.from('4color_games').select('*').eq('id', gameId);
     assert.equal(privateRead.data.length, 0);
-    const privileged = await a.rpc('server_game_context', { p_game: gameId });
+    const privileged = await a.rpc('4color_server_game_context', { p_game: gameId });
     assert.ok(privileged.error);
-    const dml = await a.from('games').update({ board_version: 999 }).eq('id', gameId);
+    const dml = await a.from('4color_games').update({ board_version: 999 }).eq('id', gameId);
     assert.ok(dml.error);
     let rt;
     if (n === 2) {
-      rt = await channel(b, `game:${gameId}`);
-      const denied = await channel(c, `game:${gameId}`, false);
+      rt = await channel(b, `4color_game:${gameId}`);
+      const denied = await channel(c, `4color_game:${gameId}`, false);
       await c.removeChannel(denied.ch);
       report.checks.push(
         'private-realtime-membership',

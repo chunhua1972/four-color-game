@@ -4,7 +4,7 @@
 
 原始碼：[chunhua1972/four-color-game](https://github.com/chunhua1972/four-color-game)
 
-後端：Supabase Fourcolor（`pojhgousjmrlussvslwu`）。
+後端：Supabase Games（`aabjctsxjwsismfrwpja`），於 2026-10-06 從 Fourcolor 搬移。Games 同時承載 Tetris；四個顏色的資料表與資料庫函式使用 `4color_` 前綴，私密表位於 `4color_private`，Realtime topic 使用 `4color_game:`／`4color_room:`。Edge Function 名稱必須以英文字母開頭，使用 `fourcolor_game_api`／`fourcolor_job_dispatch`。
 
 ## 使用
 
@@ -32,24 +32,30 @@ GitHub Actions 只有 `VITE_SUPABASE_URL` 與 `VITE_SUPABASE_PUBLISHABLE_KEY` �
 
 ```powershell
 npx supabase@2.119.0 db push --linked
-npx supabase@2.119.0 functions deploy game-api --use-api
-npx supabase@2.119.0 functions deploy job-dispatch --use-api
+npx supabase@2.119.0 functions deploy fourcolor_game_api fourcolor_job_dispatch --project-ref aabjctsxjwsismfrwpja --use-api
 ```
 
-初次部署／輪替排程憑證時執行 `node scripts/prepare-deployment.mjs`，把忽略目錄內的 `job.env` 送到 Supabase secrets，再執行 `cron.sql` 將同一憑證放入 Vault。**不要將這些檔案提交或貼入公開 issue。** `set-github-public-config.mjs` 只傳送公開 frontend variables。
+初次部署／輪替排程憑證時執行 `node scripts/prepare-deployment.mjs`，把忽略目錄內的 `job.env` 送到 Games 的 Supabase secrets，再執行 `cron.sql` 將同一憑證放入 Vault。使用獨立的 `FOURCOLOR_JOB_DISPATCH_SECRET`／`FOURCOLOR_PUBLIC_ORIGINS`，避免覆蓋 Tetris 設定。**不要將這些檔案提交或貼入公開 issue。** `set-github-public-config.mjs` 只傳送公開 frontend variables。
+
+新環境的 migrations 建立排程函式但不立即啟用 Cron。資料與 Vault 設定完成後，執行：
+
+```sql
+select cron.schedule('4color_jobs', '2 seconds', 'select "4color_private"."4color_invoke_game_jobs"()');
+select cron.schedule('4color_outbox', '1 second', 'select "4color_private"."4color_dispatch_outbox"()');
+```
 
 Supabase Cron 每 2 秒檢查到期工作；無到期工作時不呼叫 Edge。每秒重送未完成 outbox。工作有 20 秒租約與重試，不使用瀏覽器或 Edge 常駐計時器。排程的實際 HTTP 延遲仍受雲端服務影響。
 
 健康查詢（管理者 CLI，無憑證輸出）：
 
 ```powershell
-npx supabase@2.119.0 db query --linked "select public.server_health();"
+npx supabase@2.119.0 db query --linked --project-ref aabjctsxjwsismfrwpja 'select public."4color_server_health"();'
 ```
 
 檢查 overdueJobs、cron.job_run_details 失敗及 net._http_response 失敗；診斷時不要查出 Vault 解密值或記錄 JWT／暗手／牌庫。前端可重新部署前一 commit；DB schema 保持向前兼容，避免直接 reset 正式資料庫。
 
 ## 尚需實機與規模驗收
 
-本次驗證證據：`cloud-verification.json` 記錄獨立訪客、RLS／RPC／Realtime 隔離、每種席數的操作競態与五種席數的真實終局／零和分數；`pages-verification.json` 記錄已發布網站在手機與桌面兩個獨立瀏覽器的建房／加入／準備／開局／同步／刷新／重連。159 項自動測試包含首次匿名登入競態的回歸測試，另有 13 項瀏覽器 E2E。
+本次驗證證據：`cloud-verification.json` 記錄 Games 上獨立訪客、RLS／RPC／Realtime 隔離、2–6 席操作競態與真實終局／零和分數；`4color-migrated-guest-verification.json` 記錄原訪客的身分與房間恢復；`4color-migration-verification.json` 記錄搬移內容及既有 Tetris 資料一致性。161 項自動測試包含首次匿名登入競態與移轉登入的回歸測試。
 
 已驗證瀏覽器尺寸不等於 iPhone／iPad／Android 實機驗收。熟手房規確認、50 房／300 席壓測、帳號綁定、跨裝置同一身分、雲端歷史介面與外部告警仍屬後續工程；不要將目前發佈解讀為 DEVplan 所有 M7 條件已完成。

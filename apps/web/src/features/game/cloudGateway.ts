@@ -19,7 +19,7 @@ export class CloudGateway implements GameGateway {
     await this.getSnapshot();
     if (this.closed) return;
     this.channel = supabase!
-      .channel(`game:${this.gameId}`, { config: { private: true } })
+      .channel(`4color_game:${this.gameId}`, { config: { private: true } })
       .on('broadcast', { event: 'changed' }, () => {
         void this.getSnapshot().catch(() => {});
       })

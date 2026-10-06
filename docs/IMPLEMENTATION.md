@@ -1,6 +1,6 @@
 # 實作進度 — 2026-10-05
 
-交付：本地練習與雲端 2–6 席真人／AI 混合對戰，部署到 GitHub Pages 與 Supabase Fourcolor。本文件記錄 DEVplan 的證據與剩餘驗收；部署操作見 `DEPLOYMENT.md`。
+交付：本地練習與雲端 2–6 席真人／AI 混合對戰，部署到 GitHub Pages 與 Supabase Games（四個顏色使用 `4color_` 資料庫名稱）。本文件記錄 DEVplan 的證據與剩餘驗收；部署操作見 `DEPLOYMENT.md`。
 
 | 階段 | 目前成果 | 尚缺退出條件 |
 |---|---|---|
@@ -13,7 +13,7 @@
 | M6 | 2–6 席房間／邀請／準備／混合 AI、CloudGateway、private Realtime、Cron／job lease／outbox、刷新恢復與 90 秒 AI 接管 | 帳號綁定、跨裝置同身分、完整管理介面 |
 | M7 | PWA 子目錄 cache、PNG icons、reduced motion、五 viewport E2E、CI／Pages 發佈、secret check、後端健康查詢 | Safari/Android/Windows 實機、50 房／300 席 load、外部告警、更新提示、雲端歷史介面 |
 
-所有後端表採 migration。已依使用者授權部署到 Supabase Fourcolor；GitHub 只保存原始碼及公開 build 設定，不保存環境檔或 server keys。權威局面僅由可信 Edge 產生，客戶端不能提供 nextState。通知僅含識別碼，完整牌庫與暗手不出伺服器。
+所有後端表採 migration。已依使用者授權從 Supabase Fourcolor 搬移到 Games，保留現有資料與登入身分；原始 migrations 存於 `supabase/archive/fourcolor-migrations`。GitHub 只保存原始碼及公開 build 設定，不保存環境檔或 server keys。權威局面僅由可信 Edge 產生，客戶端不能提供 nextState。通知僅含識別碼，完整牌庫與暗手不出伺服器。
 
 ## 一般 AI，5,000 局固定種子結果
 
